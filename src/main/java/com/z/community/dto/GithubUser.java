@@ -13,6 +13,15 @@ public class GithubUser {
     public GithubUser() {
     }
 
+    @Override
+    public String toString() {
+        return "GithubUser{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", bio='" + bio + '\'' +
+                '}';
+    }
+
     public GithubUser(String name, Long id, String bio) {
         this.name = name;
         this.id = id;
