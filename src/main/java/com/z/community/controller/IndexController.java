@@ -1,8 +1,13 @@
 package com.z.community.controller;
 
+import com.z.community.mapper.UserMapper;
+import com.z.community.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * project--community.
@@ -11,9 +16,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
+    @Autowired
+    private UserMapper userMapper;
 
     @RequestMapping("/")
-    public String Index(){
+    public String Index(
+            HttpServletRequest req
+    ){
+        Cookie[] cookies = req.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                String token = cookie.getValue();
+                User user=userMapper.findByToken(token);
+                System.out.println("这是我的user====" + user);
+                if(user!=null){
+                    req.getSession().setAttribute("user",user);
+                }
+                break;
+            }
+        }
         return "index";
     }
 
