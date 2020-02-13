@@ -84,7 +84,13 @@
             <version>2.10.2</version>
         </dependency>
 
-
+        <!--引入lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>

@@ -1,13 +1,17 @@
 package com.z.community.controller;
 
+import com.z.community.dto.QuestionDTO;
 import com.z.community.mapper.UserMapper;
 import com.z.community.model.User;
+import com.z.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * project--community.
@@ -19,22 +23,31 @@ public class IndexController {
     @Autowired
     private UserMapper userMapper;
 
-    @RequestMapping("/")
+    @Autowired
+    private QuestionService questionService;
+
+
+    @GetMapping("/")
     public String Index(
-            HttpServletRequest req
+            HttpServletRequest req,
+            Model model
     ){
         Cookie[] cookies = req.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                String token = cookie.getValue();
-                User user=userMapper.findByToken(token);
-                System.out.println("这是我的user====" + user);
-                if(user!=null){
-                    req.getSession().setAttribute("user",user);
+        if (cookies!=null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    User user=userMapper.findByToken(token);
+                    if(user!=null){
+                        req.getSession().setAttribute("user",user);
+                    }
+                    break;
                 }
-                break;
             }
         }
+
+        List<QuestionDTO> questionList = questionService.list();
+        model.addAttribute("quessions",questionList);
         return "index";
     }
 

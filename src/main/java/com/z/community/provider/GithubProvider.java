@@ -1,7 +1,6 @@
 package com.z.community.provider;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.z.community.dto.AccessTokenDTO;
 import com.z.community.dto.GithubUser;
 import okhttp3.*;
