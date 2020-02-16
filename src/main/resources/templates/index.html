@@ -29,7 +29,7 @@
                     <h4 class="media-heading" th:text="${q.getTitle()}"></h4>
                     <span th:text="${q.getDescription()}"></span>
                     <br/>
-                    <span class="text-desc">
+                    <span class="text-desc" style="font-size: 12px;font-weight: normal;color: #999;">
                         <span th:text="${q.getCommentCount() ?: 0}"></span>个回复 ·
                         <span th:text="${q.getViewCount() ?: 0}"></span>次浏览 ·
                         <span th:text="${#dates.format(q.getGmtCreate(),'dd MMMM yyy')}"></span>小时前</span>
