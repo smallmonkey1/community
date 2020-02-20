@@ -3,11 +3,11 @@
 <head>
     <title>发布 - Z社区</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="styleSheet" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link type="text/css" rel="styleSheet" href="webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link type="text/css" rel="styleSheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link type="text/css" rel="styleSheet" href="/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link type="text/css" rel="styleSheet" href="/css/community.css">
-    <script src="webjars/jquery/3.3.1/jquery.min.js" type="application/javascript"></script>
-    <script src="webjars/bootstrap/3.3.7/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/webjars/jquery/3.3.1/jquery.min.js" type="application/javascript"></script>
+    <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
 <!--引入导航栏-->
@@ -20,6 +20,7 @@
             <hr>
 
             <form action="/publish" method="post">
+                <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）：</label>
                     <input th:value="${title}" type="text" class="form-control" id="title" name="title" placeholder="问题标题....">

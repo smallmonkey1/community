@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Z社区</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link type="text/css" rel="styleSheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link type="text/css" rel="styleSheet" href="/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link type="text/css" rel="styleSheet" href="/css/community.css">
+    <script src="/webjars/jquery/3.3.1/jquery.min.js" type="application/javascript"></script>
+    <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+
+<!--引入导航栏-->
+<div th:insert="~{index_nav :: #index-nav}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron">
+            <h1>出错啦！！</h1>
+            <p th:text="${message}">服务太热啦，要不然稍等一下再试试</p>
+            <p><a href="/" class="btn btn-primary btn-lg" role="button">回到主页</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
