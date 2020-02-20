@@ -1,9 +1,11 @@
 package com.z.community.controller;
 
+import com.z.community.cache.TagCache;
 import com.z.community.dto.QuestionDTO;
 import com.z.community.model.Question;
 import com.z.community.model.User;
 import com.z.community.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,11 +35,13 @@ public class PublishController {
         model.addAttribute("description",question.getDescription());
         model.addAttribute("tag",question.getTag());
         model.addAttribute("id",question.getId());
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish( Model model){
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
@@ -53,6 +57,8 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        model.addAttribute("tags", TagCache.get());
+
         String e="";
         boolean b = (title == null || title.equals(""));
         if (b) {
@@ -66,7 +72,12 @@ public class PublishController {
         if (b1) {
             e=e+"标签不能为空；";
         }
-        if (b || de || b1) {
+        String invalid = TagCache.filterInvalid(tag);
+        boolean noneBlank = StringUtils.isNoneBlank(invalid);
+        if(noneBlank){
+            e=e+"输入非法标签；"+invalid;
+        }
+        if (b || de || b1 || noneBlank) {
             model.addAttribute("error",e);
             return "publish";
         }
