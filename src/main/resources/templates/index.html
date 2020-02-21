@@ -28,22 +28,22 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发现</h2>
             <hr>
-            <div class="media" th:each="q : ${pagination.questions}">
+            <div class="media" th:each="question : ${pagination.data}">
                 <div class="media-left">
                     <a href="#">
-                        <img th:src="${q.user.avatarUrl}" class="media-object img-rounded">
+                        <img th:src="${question.user.avatarUrl}" class="media-object img-rounded">
                     </a>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading" >
-                        <a th:href="@{'/question/'+${q.id}}" th:text="${q.title}"></a>
+                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <span th:text="${q.description}"></span>
+                    <span th:text="${question.description}"></span>
                     <br/>
                     <span class="text-desc" style="font-size: 12px;font-weight: normal;color: #999;">
-                        <span th:text="${q.commentCount ?: 0}"></span>个回复 ·
-                        <span th:text="${q.viewCount ?: 0}"></span>次浏览 ·
-                        <span th:text="${#dates.format(q.gmtCreate,'dd MMMM yyy')}"></span>小时前</span>
+                        <span th:text="${question.commentCount ?: 0}"></span>个回复 ·
+                        <span th:text="${question.viewCount ?: 0}"></span>次浏览 ·
+                        <span th:text="${#dates.format(question.gmtCreate,'dd MMMM yyy')}"></span>小时前</span>
                 </div>
             </div>
 
