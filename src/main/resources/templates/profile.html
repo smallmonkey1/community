@@ -20,18 +20,23 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span th:text="${sectionName}"></span></h2>
             <hr>
-            <div class="media" th:each="q : ${pagination.questions}">
+            <div class="media" th:each="question : ${pagination.questions}">
                 <div class="media-left">
                     <a href="#">
-                        <img th:src="${q.user.avatarUrl}" class="media-object img-rounded">
+                        <img th:src="${question.user.avatarUrl}" class="media-object img-rounded">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${q.getTitle()}"></h4>
-                    <span class="text-desc" style="font-size: 12px;font-weight: normal;color: #999;">
-                        <span th:text="${q.getCommentCount() ?: 0}"></span>个回复 ·
-                        <span th:text="${q.getViewCount() ?: 0}"></span>次浏览 ·
-                        <span th:text="${#dates.format(q.getGmtCreate(),'dd MMMM yyy')}"></span>小时前</span>
+                    <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
+                    <span class="text-desc">
+                        <span th:text="${question.getCommentCount() ?: 0}"></span>个回复 ·
+                        <span th:text="${question.getViewCount() ?: 0}"></span>次浏览 ·
+                        <span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd')}"></span> ·
+                        <a th:href="@{'/publish/'+${question.id}}" class="community-menu"
+                           th:if="${session.user!=null && session.user.id == question.creator}">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span>
+                    </a>
+                    </span>
                 </div>
             </div>
 
@@ -70,7 +75,8 @@
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="list-group section">
-                <a href="/profile/questions" th:class="${section=='questions'}? 'active list-group-item':'list-group-item'">我的问题</a>
+                <a href="/profile/questions"
+                   th:class="${section=='questions'}? 'active list-group-item':'list-group-item'">我的问题</a>
                 <a href="/profile/replies" th:class="${section=='replies'}? 'active list-group-item':'list-group-item'">
                     最新回复
                     <span class="badge">14</span>
