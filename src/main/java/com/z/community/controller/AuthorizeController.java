@@ -59,6 +59,7 @@ public class AuthorizeController {
             user.setToken(cookies);
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setAvatarUrl(githubUser.getAvatar_url());
+            user.setName(githubUser.getName());
 
             userService.createOrUpdate(user);
 

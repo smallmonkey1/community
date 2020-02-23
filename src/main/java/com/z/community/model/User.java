@@ -1,5 +1,8 @@
 package com.z.community.model;
 
+import lombok.ToString;
+
+@ToString
 public class User {
     /**
      *

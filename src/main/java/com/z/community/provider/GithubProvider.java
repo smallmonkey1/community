@@ -45,7 +45,7 @@ public class GithubProvider {
             GithubUser githubUser = JSON.parseObject(s1, GithubUser.class);
             return githubUser;
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
         return null;
     }

@@ -3,6 +3,7 @@ package com.z.community.interceptor;
 import com.z.community.mapper.UserMapper;
 import com.z.community.model.User;
 import com.z.community.model.UserExample;
+import com.z.community.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -12,6 +13,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
  * project--community.
  * Create by zfl on 2020/2/16 18:24.
@@ -21,19 +23,23 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = req.getCookies();
-        if (cookies!=null) {
+        if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
                     UserExample userExample = new UserExample();
                     userExample.createCriteria().andTokenEqualTo(token);
                     List<User> users = userMapper.selectByExample(userExample);
-                    if(users.size()!=0){
-                        req.getSession().setAttribute("user",users.get(0));
+                    if (users.size() != 0) {
+                        req.getSession().setAttribute("user", users.get(0));
+                        Long unreadCount = notificationService.unreadCount(users.get(0).getId());
+                        req.getSession().setAttribute("unreadMessage", unreadCount);
                     }
                     break;
                 }

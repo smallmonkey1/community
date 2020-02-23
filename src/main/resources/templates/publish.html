@@ -3,10 +3,12 @@
 <head>
     <title>发布 - Z社区</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link type="text/css" rel="styleSheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link type="text/css" rel="styleSheet" href="/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <link type="text/css" rel="styleSheet" href="/css/community.css">
+    <link type="text/css" rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/editormd.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/community.css">
     <script src="/webjars/jquery/3.3.1/jquery.min.js" type="application/javascript"></script>
+    <script src="/js/editormd.min.js" type="application/javascript"></script>
     <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/community.js" type="application/javascript"></script>
 
@@ -28,11 +30,27 @@
                     <input th:value="${title}" type="text" class="form-control" id="title" name="title"
                            placeholder="问题标题...." autocomplete="off">
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="question-editor">
                     <label for="description">问题补充（必填，请参照右侧提示）：</label>
                     <textarea th:text="${description}" name="description" class="form-control" id="description"
-                              cols="30" rows="10"></textarea>
+                              cols="30" rows="10"
+                                style="display: none;"></textarea>
                 </div>
+                <script type="text/javascript">
+                    $(function(){
+                        var editor=editormd("question-editor",{
+                            width: "100%",
+                            height : 350,
+                            path : "/js/lib/",
+                            delay: 0,
+                            watch: false,
+                            placeholder:"请输入问题描述",
+                            imageUpload: true,
+                            imageFormats: ["jpg","jpeg","gif","png","bmp","webp"],
+                            imageUploadURL: "/files/upload"
+                        });
+                    });
+                </script>
                 <div class="form-group">
                     <label for="tag">添加标签：</label>
                     <input th:value="${tag}" type="text" class="form-control" id="tag" name="tag"
@@ -54,7 +72,7 @@
                                         <span class="glyphicon glyphicon-tags" onclick="selectTag(this)"
                                               th:data-tag="${selectTag}" th:text="${' '+selectTag}">
                                         </span>
-                     q               </span>
+                                    </span>
                                 </span>
                             </div>
                         </div>

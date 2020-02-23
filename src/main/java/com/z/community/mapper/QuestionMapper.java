@@ -1,10 +1,12 @@
 package com.z.community.mapper;
 
+import com.z.community.dto.QuestionQueryDTO;
 import com.z.community.model.Question;
 import com.z.community.model.QuestionExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 public interface QuestionMapper {
     /**
@@ -134,4 +136,5 @@ public interface QuestionMapper {
      * @mbg.generated Fri Feb 21 21:41:32 CST 2020
      */
     int updateByPrimaryKey(Question record);
+
 }
