@@ -10,8 +10,4 @@ create table USER
         primary key (ID)
 );
 
-comment on column USER.GMT_CREATE is '创建时间';
-
-comment on column USER.GMT_MODIFIED is '修改时间
-';
 
