@@ -127,3 +127,11 @@ body {
 .menu .icon:hover {
     color: #499cf3;
 }
+
+.panel-footer{
+    padding: 10px 25%;
+    color: #666;
+    position: relative;
+    top: 120px;
+
+}
